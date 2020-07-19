@@ -12,7 +12,7 @@ var popup = L.popup();
 function onMapClick(e) {
     popup
         .setLatLng(e.latlng)
-        .setContent(`[Lat, Lng] = ${e.latlng}`)
+        .setContent(`[Lat, Lng] = ${e.latlng }`)
         .openOn(map);
 }
 
