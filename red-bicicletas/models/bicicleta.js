@@ -36,9 +36,17 @@ Bicicleta.removeByID = function(aBiciID) {
 
 var a = new Bicicleta(1, 'Rojo', 'Urbana', [6.2802118,-75.5612302]);
 var b = new Bicicleta(2, 'Negra', 'Urbana', [6.280041,-75.553892]);
+var c = new Bicicleta(3, 'Azul', 'Montaña', [6.2767991,-75.5685687]);
+var d = new Bicicleta(4, 'Verde/Negra', 'Urbana', [6.2770124,-75.5662513]);
+var e = new Bicicleta(5, 'Amarilla', 'Montaña', [6.2705284,-75.5644917]);
+var f = new Bicicleta(6, 'Blanca/Negra/Verde', 'BMX', [6.2697178,-75.5701565]);
 
 Bicicleta.add(a);
 Bicicleta.add(b);
+Bicicleta.add(c);
+Bicicleta.add(d);
+Bicicleta.add(e);
+Bicicleta.add(f);
 
 
 module.exports = Bicicleta;

@@ -6,3 +6,8 @@ a {
   height: 600px;
 
 }
+
+#logo {
+  font-family: 'Monoton', cursive;
+  font-size: 40px
+}
