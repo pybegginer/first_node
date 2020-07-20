@@ -18,19 +18,20 @@ to run your local server with express.
 localhost:3000 --> Open homepage from project: Here you can see a map (using Leaftleft) to visualize current avaliable Bicycle.
 localhost:3000/bicicletas --> Open current available bicycles with option to Create, Update and Delete bicycles.
 
-//---API endpoints----//
+##API Endpoints
 
-**[GET]** ```localhost:3000/api/bicicletas```: List all available bicycles
+**[GET]** [localhost:3000/api/bicicletas](localhost:3000/api/bicicletas): List all available bicycles
 
-**[POST]** ```localhost:3000/api/bicicletas/create```: 
+**[POST]** [localhost:3000/api/bicicletas/create](localhost:3000/api/bicicletas/create): 
 
-    body params: ```{
+ ```body params: {
         "id": id,        
         "color": color de la bicicleta,        
         "modelo": modelo de bicicleta,        
         "lat": Latitud de la ubicación de la bicicleta,        
         "lng": Longitud de la ubicación de la bicicleta,        
-    }```
+    }
+ ```
     
 **[POST]** localhost:3000/api/bicicletas/delete:
 
