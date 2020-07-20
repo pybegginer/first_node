@@ -19,10 +19,12 @@ localhost:3000 --> Open homepage from project: Here you can see a map (using Lea
 localhost:3000/bicicletas --> Open current available bicycles with option to Create, Update and Delete bicycles.
 
 //---API endpoints----//
+
 [GET] localhost:3000/api/bicicletas: List all available bicycles
 
 [POST] localhost:3000/api/bicicletas/create: 
-    -body params: {
+
+    body params: {
         "id": id,        
         "color": color de la bicicleta,        
         "modelo": modelo de bicicleta,        
@@ -31,6 +33,7 @@ localhost:3000/bicicletas --> Open current available bicycles with option to Cre
     }
     
 [POST] localhost:3000/api/bicicletas/delete:
+
     -body params: {    
         "id": id de la bicicleta a eliminar        
     }
