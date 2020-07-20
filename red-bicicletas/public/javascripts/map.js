@@ -17,3 +17,20 @@ function onMapClick(e) {
 }
 
 map.on('click', onMapClick);
+
+//Llamada AJAX
+
+$.ajax({
+    dataType: 'json',
+    url: 'api/bicicletas',
+    success: (result) =>{
+        console.log(result);
+        result.bicicletas.forEach((bici)=>{
+           var mark= L.marker(bici.ubicacion, 
+                {title: bici.id,
+                color: '#000000'}).addTo(map);
+           mark.bindPopup(`<b>${bici.id}: <br>Bicicleta ${bici.color} tipo ${bici.modelo}</b>`).openPopup();
+
+        })
+    }
+})
