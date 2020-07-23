@@ -6,7 +6,6 @@
     "start": "node ./bin/www",
     "devstart": "nodemon ./bin/www",
     "test": "jasmine"
-
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
@@ -15,7 +14,8 @@
     "http-errors": "~1.6.3",
     "leaflet": "^1.6.0",
     "morgan": "~1.9.1",
-    "pug": "2.0.0-beta11"
+    "pug": "2.0.0-beta11",
+    "request": "^2.88.2"
   },
   "devDependencies": {
     "jasmine": "^3.5.0",
