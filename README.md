@@ -26,17 +26,18 @@ localhost:3000/bicicletas --> Open current available bicycles with option to Cre
 ## API Endpoints
 
 **[GET]** [localhost:3000/api/bicicletas](localhost:3000/api/bicicletas): 
+
 Lista todas las bicicletas disponibles
+
 Respuesta(Array):
+
  ```
 {
-    ubicacion(Array): un array con lat,lng de la ubicación actual de la bicicleta,
-    _id(String): Identificador único dado por MongoDB para reconocer este objeto,
-    code(Number): Id general para reconocer la bicicleta,
-    color(String): Color de cada bicicleta,
-    modelo(String): Tipo de bicicleta,
-
-
+    ``ubicacion(Array)``: un array con lat,lng de la ubicación actual de la bicicleta,
+    ``id(String)``: Identificador único dado por MongoDB para reconocer este objeto,
+    ``code(Number)``: Id general para reconocer la bicicleta,
+    ``color(String)``: Color de cada bicicleta,
+    ``modelo(String)``: Tipo de bicicleta
 }
  ```
 
