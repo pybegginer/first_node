@@ -31,7 +31,7 @@ Lista todas las bicicletas disponibles
 
 Respuesta(Array):
 
- ``
+ ```
 {
     ubicacion(Array): un array con lat,lng de la ubicación actual de la bicicleta,
     id(String): Identificador único dado por MongoDB para reconocer este objeto,
@@ -39,7 +39,7 @@ Respuesta(Array):
     color(String): Color de cada bicicleta,
     modelo(String): Tipo de bicicleta
 }
- ``
+ ```
 
 **[POST]** [localhost:3000/api/bicicletas/create](localhost:3000/api/bicicletas/create): 
 Crea una bicicleta y la agrega  al moedlo de MongoDB
