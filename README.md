@@ -42,7 +42,9 @@ Respuesta(Array):
  ```
 
 **[POST]** [localhost:3000/api/bicicletas/create](localhost:3000/api/bicicletas/create): 
+
 Crea una bicicleta y la agrega  al moedlo de MongoDB
+
  ```
  body params: {
         code(Number): Código dado para reconocer la bicicleta (diferente del ID dado por MongoDB),
@@ -54,7 +56,9 @@ Crea una bicicleta y la agrega  al moedlo de MongoDB
  ```
     
 **[DELETE]** [localhost:3000/api/bicicletas/delete](localhost:3000/api/bicicletas/delete):
+
 Elimina una bicicleta basado en el código de identificacion general (code)
+
  ```
     -body params: {    
         code(Number): Número de identificación general de la bicicleta
@@ -62,8 +66,11 @@ Elimina una bicicleta basado en el código de identificacion general (code)
 ```  
 
 **[GET]** [localhost:3000/api/usuarios](localhost:3000/api/usuarios)
+
     Muestra todos los usuarios activos en la base de datos
+    
     Respuesta (Array):
+    
  ```
     [{
         _id(String): Identificador único de Mongoose,
@@ -72,7 +79,9 @@ Elimina una bicicleta basado en el código de identificacion general (code)
  ```
 
 **[POST]** [localhost:3000/api/usuarios/create](localhost:3000/api/usuarios/create)
+
     Crea un nuevo usuario en la base de datos
+    
  ```
     -body params : {
         nombre(String): Nombre con el cual guardar el usuario en la base de datos.
@@ -80,7 +89,9 @@ Elimina una bicicleta basado en el código de identificacion general (code)
  ```
 
  **[POST]** [localhost:3000/api/usuarios/reservar](localhost:3000/api/usuarios/reservar)
+ 
     Reserva una bicicleta para un usuario en entre un par de días específicos
+    
  ```
     body params : {
         id(String): String identificador único de usuario dado por MongoDB,
