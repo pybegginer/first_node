@@ -6,7 +6,7 @@ var bicicletaController = require('../../controllers/api/bicicletaControllerApi'
 //Creo los end-point
 router.get('/', bicicletaController.bicicleta_list);
 router.post('/create', bicicletaController.bicicleta_create);
-router.post('/delete', bicicletaController.bicicleta_delete);
+router.delete('/delete', bicicletaController.bicicleta_delete);
 
 //Exporto los datos
 module.exports = router;

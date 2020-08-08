@@ -29,6 +29,7 @@ exports.bicicleta_create = (req, res)=>{
 
 
 exports.bicicleta_delete = (req, res) =>{
-    Bicicleta.removeByID(req.body.id);
-    res.status(204).send();
-}
+    Bicicleta.removeByCode(req.body.code, function(){
+        res.status(204).send();
+    });
+};
