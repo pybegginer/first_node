@@ -19,9 +19,14 @@ then run:
 With requirements up-to-date you can run:
     npm run devstart
 to run your local server with express.
+```
+-localhost:3000 --> Open homepage from project: Here you can see a map (using Leaftleft) to visualize current avaliable Bicycle.
 
-localhost:3000 --> Open homepage from project: Here you can see a map (using Leaftleft) to visualize current avaliable Bicycle.
-localhost:3000/bicicletas --> Open current available bicycles with option to Create, Update and Delete bicycles.
+-localhost:3000/bicicletas --> Open current available bicycles with option to Create, Update and Delete bicycles.
+
+-http://localhost:3000/usuarios --> Open current users in db with option to create, update and delete them
+
+```
 
 ## API Endpoints
 

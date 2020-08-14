@@ -2,25 +2,31 @@
 var Bicicleta = require('../models/bicicleta');
 
 exports.bicicleta_list = function(req, res) {
-    res.render('bicicletas/index', {bicis: Bicicleta.allBicis});
-}
+    Bicicleta.allBicis((err, bicis) => {
+        res.render('bicicletas/index', {bicis: bicis});
+    });
+};
 
 exports.bicicleta_create_get = function(req, res){
     //Muestro la página de crear para que ingresen los datos
-    console.log('Create new bycicle')
+    //console.log('Create new bycicle')
     res.render('bicicletas/create');
 }
 
 exports.bicicleta_create_post = function(req, res){
-    var bici = new Bicicleta(req.body.id, req.body.color, req.body.modelo);
+    var bici = new Bicicleta({code: req.body.code, color: req.body.color, modelo: req.body.modelo});
     bici.ubicacion = [req.body.lat, req.body.lng];
-    Bicicleta.add(bici);
-    res.redirect('/bicicletas');
+    Bicicleta.add(bici, (err)=>{
+        res.redirect('/bicicletas');
+    })
+    
 }
 
 exports.bicicleta_delete_post = (req, res)=>{
-    Bicicleta.removeByID(req.body.id);
-    res.redirect('/bicicletas');
+    Bicicleta.removeByCode(req.body.code, (err)=>{
+        res.redirect('/bicicletas');
+    });
+    
 }
 
 //Update

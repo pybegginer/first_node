@@ -1,10 +1,16 @@
+//imports
 var mongoose = require('mongoose');
+const uniqueValidator = require('mongoose-unique-validator');
 var Reserva = require('./reserva');
 const bcrypt = require('bcrypt');
+const crypto = require('crypto');
 const saltRounds = 10;
 
+const Token = require('./token');
+const mailer = require('../mailer/mailer');
 
 
+//create an Schema for MongoDB
 var Schema = mongoose.Schema;
 //validate email from users:
 
@@ -22,15 +28,16 @@ var usuarioSchema = new Schema({
         trim: true,
         required: [true, 'El nombre es obligatorio']
     },
-    mail: {
+    email: {
         type: String,
         trim: true,
         required: [true, 'El mail es obligatorio'],
         lowercase: true,
+        unique: true,
         validate: [validateEmail, 'Por favor ingrese un email válido'],
         match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/]
     },
-    password = {
+    password: {
         type: String,
         required: [true, 'El password es obligatorio']
     },
@@ -41,6 +48,8 @@ var usuarioSchema = new Schema({
         default: false
     }
 });
+//add unique validator as Plugin
+usuarioSchema.plugin(uniqueValidator, { message: 'El {PATH} ya existe con otro usuario'});
 
 //Encriptar los password para que se guarden de manera segura en la base de datos
 usuarioSchema.pre('save', function(next){
@@ -49,7 +58,10 @@ usuarioSchema.pre('save', function(next){
     }
     next();
 });
-
+//agregar la comparación de passwords
+usuarioSchema.methods.validPassword = function(password){
+    return bcrypt.compareSync(password, this.password);
+}
 
 usuarioSchema.methods.reservar = function(biciId, desde, hasta, cb){
     var reserva = new Reserva({
@@ -62,6 +74,33 @@ usuarioSchema.methods.reservar = function(biciId, desde, hasta, cb){
     reserva.save(cb);
 }
 
+//New Method for Send Email for welcome
+usuarioSchema.methods.enviar_email_bienvenida = function(cb) {
+    const token = new Token({
+        _userId: this.id,
+        token: crypto.randomBytes(16).toString('hex')
+    });
+    const email_destination = this.email;
+    token.save(function (err) {
+        if (err) {
+            return console.log(err.message);
+        };
+        //create a mail to be send
+        const mailOptions = {
+            from: 'no-reply@bicicletas.com',
+            to: email_destination,
+            subject: 'Verificación de la cuenta',
+            text: `Hola. \n\n Para verificar su cuenta, por favor haga click aquí: \n <a href=http://localhost:3000/token/confirmation/${token.token}> Confirma tu token </a>. \n`
+        };
+
+        mailer.sendMail(mailOptions, function(err){
+            if(err) { 
+                return console.log(err.message)
+            } 
+            console.log(`A verification email has been sent to ${email_destination}`); 
+        });
+    });
+}
 //Exports
 
 module.exports = mongoose.model('Usuario', usuarioSchema)
