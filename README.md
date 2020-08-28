@@ -28,15 +28,29 @@ to run your local server with express.
 
 ```
 
-## API Endpoints
+# API Endpoints
 
-**[GET]** [localhost:3000/api/bicicletas](localhost:3000/api/bicicletas): 
+Todas los ENDPOINT de api/bicicletas requieren el token generado para poder consultar/crear/borrar bicicletas
 
+### **[GET]** [localhost:3000/api/bicicletas](localhost:3000/api/bicicletas): 
 Lista todas las bicicletas disponibles
 
-Respuesta(Array):
+```
+Headers:
+{
+    x-access-token(String): Token generado para el usuario y poder usarlo para conocer las bicicletas
+}
+
+```
+
+#### Respuesta(Array):
 
  ```
+ Headers:
+{
+    x-access-token(String): Token generado para el usuario y poder usarlo para conocer las bicicletas
+}
+body params:
 {
     ubicacion(Array): un array con lat,lng de la ubicación actual de la bicicleta,
     id(String): Identificador único dado por MongoDB para reconocer este objeto,
@@ -46,11 +60,16 @@ Respuesta(Array):
 }
  ```
 
-**[POST]** [localhost:3000/api/bicicletas/create](localhost:3000/api/bicicletas/create): 
+### **[POST]** [localhost:3000/api/bicicletas/create](localhost:3000/api/bicicletas/create): 
 
 Crea una bicicleta y la agrega  al moedlo de MongoDB
 
  ```
+ Headers:
+{
+    x-access-token(String): Token generado para el usuario y poder usarlo para conocer las bicicletas
+}
+
  body params: {
         code(Number): Código dado para reconocer la bicicleta (diferente del ID dado por MongoDB),
         color(String): Color de la bicicleta,         
@@ -60,17 +79,53 @@ Crea una bicicleta y la agrega  al moedlo de MongoDB
     }
  ```
     
-**[DELETE]** [localhost:3000/api/bicicletas/delete](localhost:3000/api/bicicletas/delete):
+### **[DELETE]** [localhost:3000/api/bicicletas/delete](localhost:3000/api/bicicletas/delete):
 
 Elimina una bicicleta basado en el código de identificacion general (code)
 
  ```
-    -body params: {    
-        code(Number): Número de identificación general de la bicicleta
-    }
+ Headers:
+{
+    x-access-token(String): Token generado para el usuario y poder usarlo para conocer las bicicletas
+}
+
+body params: 
+{    
+    code(Number): Número de identificación general de la bicicleta
+}
 ```  
 
-**[GET]** [localhost:3000/api/usuarios](localhost:3000/api/usuarios)
+### **[POST]** [localhost:3000/api/auth/authenticate](localhost:3000/api/auth/authenticate):
+Autentica al usuario para generarle un Token que puede usar para acceder a las bicicletas
+
+```javascript
+body params:
+{
+    email(String): Correo del usuario registrado,
+    password(String): Contraseña del usuario,
+}
+```
+#### _Success_:
+```
+{
+message: "Usuario encontrado",
+data(JSON): {
+            usuario(Array):{
+                        verificado(String): Muestra si el usuario ya está verificado,
+                        _id(String): ID de MongoDB del usuario,
+                        nombre(String): Nombre dado al usuario,
+                        email(String): Correo eléctronico del usuario,
+                        password(hashed-String): Contraseña del usuario encontrado
+                    },
+            token(String): Token entregado al usuario para consultar las bicicletas 
+            }
+}
+```
+
+
+
+
+#### **[GET]** [localhost:3000/api/usuarios](localhost:3000/api/usuarios)
 
     Muestra todos los usuarios activos en la base de datos
     
@@ -78,22 +133,28 @@ Elimina una bicicleta basado en el código de identificacion general (code)
     
  ```
     [{
+        verificado(Boolean): Muestra si el usuario ha sido verificado con el token enviado por correo (Ethereal Mail)
         _id(String): Identificador único de Mongoose,
         nombre(String): Nombre asignado al usuario,
+        email(String): Correo del usuario,
+        password(String): Contraseña (Hasheada) del usuario
     }]
  ```
 
-**[POST]** [localhost:3000/api/usuarios/create](localhost:3000/api/usuarios/create)
+#### **[POST]** [localhost:3000/api/usuarios/create](localhost:3000/api/usuarios/create)
 
-    Crea un nuevo usuario en la base de datos
+    Crea un nuevo usuario en la base de datos.
+    
     
  ```
     -body params : {
         nombre(String): Nombre con el cual guardar el usuario en la base de datos.
+        email(String): Email para registrarse en la base de datos.
+        password(String): Contraseña para el ingreso mediante API o plataforma.
     }
  ```
 
- **[POST]** [localhost:3000/api/usuarios/reservar](localhost:3000/api/usuarios/reservar)
+ #### **[POST]** [localhost:3000/api/usuarios/reservar](localhost:3000/api/usuarios/reservar)
  
     Reserva una bicicleta para un usuario en entre un par de días específicos
     
