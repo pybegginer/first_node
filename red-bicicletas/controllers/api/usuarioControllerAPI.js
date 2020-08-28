@@ -11,9 +11,16 @@ exports.usuarios_list = function(req, res) {
 
 //create a new User from data send in request body in API
 exports.usuario_create = function (req, res) {
-    var usuario = new Usuario({nombre: req.body.nombre});
-    usuario.save( function(err){
-        res.status(200).json(usuario);
+    var usuario = new Usuario({nombre: req.body.nombre, email:req.body.email, password: req.body.password});
+    Usuario.create(usuario, function(err, nuevoUsuario){
+        if (err) {
+            return res.status(400).json({
+                status: error,
+                message: "Ops. There was a mistake!"
+            });
+        };
+        nuevoUsuario.enviar_email_bienvenida();
+        res.status(200).json(nuevoUsuario);
     });
 };
 
