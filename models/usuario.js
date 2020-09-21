@@ -90,7 +90,7 @@ usuarioSchema.methods.enviar_email_bienvenida = function(cb) {
             from: 'no-reply@bicicletas.com',
             to: email_destination,
             subject: 'Verificación de la cuenta',
-            text: `Hola. \n\n Para verificar su cuenta, por favor haga click aquí: \n <a href=http://localhost:3000/token/confirmation/${token.token}> Confirma tu token </a>. \n`
+            html: `Hola. \n\n Para verificar su cuenta, por favor haga click aquí: \n <a href=http://localhost:3000/token/confirmation/${token.token}> Confirma tu token </a>. \n`
         };
 
         mailer.sendMail(mailOptions, function(err){
