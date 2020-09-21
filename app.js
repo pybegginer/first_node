@@ -42,8 +42,6 @@ app.use(session({
 //Using Mongoose
 //Si estoy en dev usar localhost sino usar mongoatlas
 var mongoose = require('mongoose');
-//var mongoDB = 'mongodb://localhost/red_bicicletas';
-//var mongoDB = 'mongodb+srv://admin:admin123456@mydatabase.nkmnv.mongodb.net/myDatabase?retryWrites=true&w=majority';
 var mongoDB = process.env.MONGO_URI;
 mongoose.connect(mongoDB, { useNewUrlParser: true });
 mongoose.Promise = global.Promise;
