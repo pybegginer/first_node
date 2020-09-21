@@ -69,6 +69,11 @@ app.get('/privacy', function(req, res){
   res.render('privacyPol');
 });
 
+//Google Confirmation
+app.use('/googleed1226c1bd47989c', function(req, res){
+  res.sendFile('public/googleed1226c1bd47989c.html')
+})
+
 app.get('/login', function(req,res){
   res.render('session/login');
 });
