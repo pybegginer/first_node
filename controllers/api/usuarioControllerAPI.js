@@ -14,7 +14,7 @@ exports.usuario_create = function (req, res) {
     var usuario = new Usuario({nombre: req.body.nombre, email:req.body.email, password: req.body.password});
     Usuario.create(usuario, function(err, nuevoUsuario){
         if (err) {
-            return res.status(400).json({
+            return res.status(500).json({
                 status: error,
                 message: "Ops. There was a mistake!"
             });
