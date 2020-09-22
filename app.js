@@ -22,13 +22,12 @@ var tokenRouter = require('./routes/token');
 var usuariosRouter = require('./routes/usuarios');
 var authRouter = require('./routes/api/auth');
 
-
 //Creo el objeto de session
 let store;
 if (process.env.NODE_ENV==='development'){
   store = new session.MemoryStore; 
 } else {
-  store = new mongoDBStore({
+  store = new session.mongoDBStore({
     uri: process.env.MONGO_URI,
     collection: 'sessions'
   });
