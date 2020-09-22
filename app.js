@@ -199,7 +199,7 @@ app.post('/resetPassword', function(req, res, next){
 
 
 //Use Google Oauth 2.0
-app.use('/auth/google', passport.authenticate('google', {
+app.get('/auth/google', passport.authenticate('google', {
   scope: [
     'https://www.googleapis.com/auth/plus.login',
     'https://www.googleapis.com/auth/plus.profile.emails.read'
