@@ -197,7 +197,7 @@ app.post('/resetPassword', function(req, res, next){
   });
 });
 
-
+console.log(`My host is: ${process.env.HOST}`)
 //Use Google Oauth 2.0
 app.get('/auth/google', passport.authenticate('google', {
   scope: [
