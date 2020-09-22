@@ -24,15 +24,15 @@ var authRouter = require('./routes/api/auth');
 
 //Creo el objeto de session
 let store;
-if (process.env.NODE_ENV==='development'){
+if (process.env.NODE_ENV === 'development'){
   store = new session.MemoryStore; 
 } else {
-  store = new session.mongoDBStore({
+  store = new mongoDBStore({
     uri: process.env.MONGO_URI,
     collection: 'sessions'
   });
   //on error
-  store.on(error, function(error){
+  store.on('error', function(error){
     assert.ifError(error);
     assert.ok(false);
   });
