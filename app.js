@@ -5,13 +5,13 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const passport = require('./config/passport');
-
+//creo la sesión
+const session = require('express-session')
+//mongoDBStore
+const mongoDBStore = require('connect-mongodb-session')(session);
 //Using usuario and Token
 const Usuario = require('./models/usuario');
 const Token = require('./models/token');
-
-//creo la sesión
-const session = require('express-session')
 const jwt = require('jsonwebtoken');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -24,7 +24,22 @@ var authRouter = require('./routes/api/auth');
 
 
 //Creo el objeto de session
-const store = new session.MemoryStore;
+let store;
+if (process.env.NODE_ENV==='development'){
+  store = new session.MemoryStore; 
+} else {
+  store = new mongoDBStore({
+    uri: process.env.MONGO_URI,
+    collection: 'sessions'
+  });
+  //on error
+  store.on(error, function(error){
+    assert.ifError(error);
+    assert.ok(false);
+  });
+}
+
+//const store = new session.MemoryStore;
 //express
 var app = express();
 //Using jwb
@@ -42,6 +57,7 @@ app.use(session({
 //Using Mongoose
 //Si estoy en dev usar localhost sino usar mongoatlas
 var mongoose = require('mongoose');
+const { assert } = require('console');
 var mongoDB = process.env.MONGO_URI;
 mongoose.connect(mongoDB, { useNewUrlParser: true });
 mongoose.Promise = global.Promise;
@@ -181,6 +197,22 @@ app.post('/resetPassword', function(req, res, next){
     //--Finish callback function FindOne
   });
 });
+
+
+//Use Google Oauth 2.0
+app.use('/auth/google', passport.authenticate('google', {
+  scope: [
+    'https://www.googleapis.com/auth/plus.login',
+    'https://www.googleapis.com/auth/plus.profile.emails.read'
+  ]
+}));
+//
+app.get('/auth/google/callback', passport.authenticate('google', {
+  successRedirect: '/',
+  failureRedirect: '/error'
+}));
+
+
 
 //URL to app
 app.use('/', indexRouter);

@@ -130,6 +130,35 @@ usuarioSchema.methods.resetPassword = function(cb){
 
 
 }
+
+usuarioSchema.statics.findOneOrCreateByGoogle = function(condition, callback){
+    const self = this;
+    console.log(condition);
+    self.findOne({
+        $or:[
+            {'googleId': condition.id}, {'email':condition.emails[0].value}
+        ]
+    }, (err, result) => {
+        if (result) {
+            callback(err, result)
+        } else {
+            console.log('---------Conditions--------');
+            console.log(conditions);
+            let values = {};
+            values.googleId = condition.Id;
+            values.emails = condition.emails[0].value;
+            values.nombre = condition.displayName || 'SIN NOMBRE';
+            values.verificado = true;
+            values.password = condition._json.etag;
+            console.log('-------Values----------');
+            console.log(values);
+            self.create(values, (err, result) =>{
+                if(err){console.log(err)}
+                return callback(err, result)
+            })
+        }
+    })
+};
 //Exports
 
 module.exports = mongoose.model('Usuario', usuarioSchema)
