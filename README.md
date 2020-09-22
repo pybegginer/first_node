@@ -1,30 +1,41 @@
 # red-bicicletas
-My first App with NodeJS and Express
+Mi primera aplicación usando Express y Node JS
 
-You can clone this repository with
+Se ha hecho un _deploy_ de este repositorio en [Heroku](https://my-bicycle-network.herokuapp.com/)
+
+Puedes clonar este repositorio usando
 ```
 git clone https://github.com/pybegginer/first_node.git
 ```
 
-To execute this project you should be at
+Para ejecutar el proyecto debes estar parado en
 
 ```
-/first_node/red-bicicletas
+/first_node
 ```
-then run:
+Y luego usar
 ```
     npm install
 ```
+para instalar los módulos de NodeJS
 
-With requirements up-to-date you can run:
-    npm run devstart
-to run your local server with express.
+Con los requerimientos listos, puedes levantar el servidor local para probar la aplicación.
+He usado
 ```
--localhost:3000 --> Open homepage from project: Here you can see a map (using Leaftleft) to visualize current avaliable Bicycle.
+npm run devstart
+```
+## Rutas
 
--localhost:3000/bicicletas --> Open current available bicycles with option to Create, Update and Delete bicycles.
+```
+-localhost:3000 --> Abre la página principal usando el template greyscale de Bootstrap. Se visualiza el mapa y una ubicación predeterminada.
 
--http://localhost:3000/usuarios --> Open current users in db with option to create, update and delete them
+-localhost:3000/bicicletas --> Muestra las bicicletas que se han creado hasta el momento
+
+-http://localhost:3000/usuarios --> Muestra los usuarios creados en la aplicación
+
+-http://localhost:3000/login --> loguearse en la plataforma para acceder a las opciones de reserva, creación y visualización de las bicicletas
+
+-http://localhost:3000/auth/google --> usa el servicio Oauth de Google para registrarse e iniciar sesión en la plataforma
 
 ```
 
@@ -121,9 +132,30 @@ data(JSON): {
             }
 }
 ```
-
-
-
+### **[POST]** [localhost:3000/api/auth/facebook_token](localhost:3000/api/auth/facebook_token): 
+Crea un usuario usando un token de facebook
+```javascript
+ body_params:
+ {
+    "access_token"(String): Token dado por Facebook para la autorización
+ }
+```
+#### _Success_:
+```
+{
+message: "Usuario encontrado",
+data(JSON): {
+            user(Array):{
+                        verificado(String): Muestra si el usuario ya está verificado,
+                        _id(String): ID de MongoDB del usuario,
+                        nombre(String): Nombre dado al usuario,
+                        email(String): Correo eléctronico del usuario,
+                        password(hashed-String): Contraseña del usuario encontrado
+                    },
+            token(String): Token entregado al usuario para iniciar sesión
+            }
+}
+```
 
 #### **[GET]** [localhost:3000/api/usuarios](localhost:3000/api/usuarios)
 
